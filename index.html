@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ตั้งเวลาแจ้งเตือนกินยา</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>ตั้งเวลาแจ้งเตือนกินยา</h1>
+  <p>เลือกเวลาที่ต้องการให้แจ้งเตือน:</p>
+  <input type="time" id="timePicker">
+  <button onclick="setReminder()">ตั้งเวลา</button>
+
+  <p id="status"></p>
+
+  <audio id="alarm" src="alarm.mp3" preload="auto"></audio>
+
+  <script src="main.js"></script>
+</body>
+</html>
