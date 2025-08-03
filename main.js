@@ -1,46 +1,39 @@
-// ขอสิทธิ์แจ้งเตือนเมื่อโหลดหน้าเว็บ
-if (Notification.permission !== "granted") {
-  Notification.requestPermission();
-}
-
-let alarmTime = null;
+let reminderTime = null;
 
 function setReminder() {
-  const timeInput = document.getElementById("timePicker").value;
-  if (!timeInput) {
-    alert("กรุณาเลือกเวลาก่อน!");
+  const inputTime = document.getElementById("pillTime").value;
+  const status = document.getElementById("status");
+
+  if (!inputTime) {
+    status.textContent = "กรุณาเลือกเวลา";
     return;
   }
 
-  alarmTime = timeInput;
-  document.getElementById("status").textContent = "ตั้งเตือนไว้ที่เวลา " + alarmTime;
+  reminderTime = inputTime;
+  status.textContent = `ระบบจะเตือนเวลา ${reminderTime}`;
 }
 
-// ตรวจสอบเวลาทุกๆ 1 วินาที
-setInterval(() => {
-  if (!alarmTime) return;
+function checkReminder() {
+  if (!reminderTime) return;
 
   const now = new Date();
-  const currentTime = now.toTimeString().slice(0, 5); // HH:MM
+  const currentTime = now.toTimeString().slice(0, 5); // "HH:MM"
 
-  if (currentTime === alarmTime) {
-    notifyWithSound();
-    alarmTime = null; // เตือนครั้งเดียว
-    document.getElementById("status").textContent = "แจ้งเตือนแล้ว";
-  }
-}, 1000);
-
-function notifyWithSound() {
-  const audio = document.getElementById("alarm");
-  audio.play().catch(err => console.log("เล่นเสียงไม่ได้:", err));
-
-  if (Notification.permission === "granted") {
-    new Notification("⏰ ถึงเวลากินยาแล้ว!");
-  } else {
-    alert("⏰ ถึงเวลากินยาแล้ว!");
-  }
-
-  if ("vibrate" in navigator) {
-    navigator.vibrate([200, 100, 200]);
+  if (currentTime === reminderTime) {
+    notifyUser();
+    reminderTime = null; // เตือนครั้งเดียว
   }
 }
+
+function notifyUser() {
+  const audio = document.getElementById("alertSound");
+  audio.play().catch((err) => console.warn("เล่นเสียงไม่ได้:", err));
+
+  if (Notification.permission === "granted") {
+    new Notification("ถึงเวลาทานยาแล้ว!");
+  } else {
+    alert("ถึงเวลาทานยาแล้ว!");
+  }
+}
+
+setInterval(checkReminder, 1000); // ตรวจทุก 1 วินาที

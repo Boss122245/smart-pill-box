@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>ตั้งเวลาแจ้งเตือนกินยา</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Pillbox Dashboard</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      padding: 30px;
       text-align: center;
-      padding: 50px;
-      background-color: #f0f0f0;
     }
-    h1 {
-      color: #333;
-    }
-    input, button {
+    h1 { color: #1e90ff; }
+    input[type="time"] {
       padding: 10px;
       font-size: 16px;
       margin: 10px;
     }
     button {
-      background-color: #007bff;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #1e90ff;
       color: white;
       border: none;
-      border-radius: 8px;
+      cursor: pointer;
+      border-radius: 5px;
     }
-    button:hover {
-      background-color: #0056b3;
+    #status {
+      margin-top: 20px;
+      font-size: 20px;
+      color: green;
     }
   </style>
 </head>
 <body>
-
-  <h1>ตั้งเวลาแจ้งเตือนกินยา</h1>
+  <h1>Smart Pillbox Dashboard</h1>
   <p>เลือกเวลาที่ต้องการให้แจ้งเตือน:</p>
-  <input type="time" id="timePicker">
-  <button onclick="setReminder()">ตั้งเวลา</button>
+  <input type="time" id="pillTime">
+  <button onclick="setReminder()">ตั้งเตือน</button>
+  <div id="status"></div>
 
-  <p id="status"></p>
-
-  <audio id="alarm" src="alarm.mp3" preload="auto"></audio>
+  <audio id="alertSound" src="alarm.mp3" preload="auto"></audio>
 
   <script src="main.js"></script>
 </body>
